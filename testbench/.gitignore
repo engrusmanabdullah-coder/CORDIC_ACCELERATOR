@@ -1,0 +1,24 @@
+# Vivado/XSim
+xsim.dir/
+*.jou
+*.log
+*.pb
+*.wdb
+*.wcfg
+*.vcd
+*.str
+
+# Simulation outputs
+*.tmp
+*.cache
+
+# Linux backup files
+*~
+*.swp
+
+# VS Code
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
