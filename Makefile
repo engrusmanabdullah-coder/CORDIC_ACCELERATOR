@@ -3,22 +3,44 @@
 # Simulator : Vivado XSim
 #########################################################################
 
-# Project directories
-SRC_DIR = src
-TB_DIR  = testbench
+# Load local configuration if it exists
+# (Ignored by Git if Makefile.local is in .gitignore)
+-include Makefile.local
 
-# Top-level testbench
-TOP = tb_cordic
+#########################################################################
+# Project Directories
+#########################################################################
 
-# Source files
-SRC = \
+SRC_DIR := src
+TB_DIR  := testbench
+
+#########################################################################
+# Top-Level Testbench
+#########################################################################
+
+TOP := tb_cordic
+
+#########################################################################
+# Vivado Tools
+# These can be overridden in Makefile.local
+#########################################################################
+
+XVLOG ?= xvlog
+XELAB ?= xelab
+XSIM  ?= xsim
+
+#########################################################################
+# Source Files
+#########################################################################
+
+SRC := \
 $(SRC_DIR)/cordic_pkg.sv \
 $(SRC_DIR)/atan_rom.sv \
 $(SRC_DIR)/cordic_datapath.sv \
 $(SRC_DIR)/cordic_controller.sv \
 $(SRC_DIR)/cordic_top.sv
 
-TB = $(TB_DIR)/tb_cordic.sv
+TB := $(TB_DIR)/tb_cordic.sv
 
 #########################################################################
 # Default Target
@@ -31,36 +53,37 @@ all: compile elaborate simulate
 #########################################################################
 
 compile:
-	xvlog -sv $(SRC) $(TB)
+	$(XVLOG) -sv $(SRC) $(TB)
 
 #########################################################################
 # Elaborate
 #########################################################################
 
 elaborate:
-	xelab $(TOP) -debug typical
+	$(XELAB) $(TOP) -debug typical
 
 #########################################################################
 # Simulate
 #########################################################################
 
 simulate:
-	xsim $(TOP) -runall
+	$(XSIM) $(TOP) -runall
 
 #########################################################################
 # GUI Simulation
 #########################################################################
 
 gui:
-	xsim $(TOP) -gui
+	$(XSIM) $(TOP) -gui
 
 #########################################################################
-# Clean
+# Clean Generated Files
 #########################################################################
 
 clean:
 	rm -rf \
 	xsim.dir \
+	.Xil \
 	*.jou \
 	*.log \
 	*.pb \

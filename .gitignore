@@ -1,0 +1,17 @@
+# Local machine configuration
+Makefile.local
+
+# Vivado generated files
+.Xil/
+xsim.dir/
+*.jou
+*.log
+*.pb
+*.wdb
+*.wcfg
+*.vcd
+*.str
+
+# OS files
+.DS_Store
+Thumbs.db
